@@ -5,4 +5,3 @@ blobstore:
   provider: gcs
   options:
     bucket_name: loggregator-release-blobs
-
