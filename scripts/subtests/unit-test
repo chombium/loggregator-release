@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -eux
+set -o pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# flags='-r --randomize-all --randomize-suites --fail-on-pending --keep-going --race --trace'
+flags='-r --race --trace'
+if [ "${CI:-false}" = 'false' ]; then
+    flags="${flags} -p"
+fi
+
+pushd "${SCRIPT_DIR}/../../src" > /dev/null
+    go run github.com/onsi/ginkgo/ginkgo $flags
+popd > /dev/null
