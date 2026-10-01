@@ -9,13 +9,14 @@ import (
 	"code.cloudfoundry.org/loggregator/plumbing"
 	"code.cloudfoundry.org/loggregator/rlp/internal/ingress"
 
-	"golang.org/x/net/context"
+	"context"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"google.golang.org/protobuf/proto"
 )

@@ -6,8 +6,9 @@
 package proxy_test
 
 import (
+	"context"
+
 	"code.cloudfoundry.org/loggregator/plumbing"
-	"golang.org/x/net/context"
 )
 
 type mockReceiver struct {

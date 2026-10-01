@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"time"
 
+	"context"
+
 	"code.cloudfoundry.org/go-loggregator/v10/rpc/loggregator_v2"
 	"code.cloudfoundry.org/loggregator/integration_tests/fakes"
 	"code.cloudfoundry.org/loggregator/testservers"
-	"golang.org/x/net/context"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

@@ -5,13 +5,14 @@ import (
 	"net"
 	"time"
 
+	"context"
+
 	"code.cloudfoundry.org/go-loggregator/v10/rpc/loggregator_v2"
 	"code.cloudfoundry.org/loggregator/metricemitter"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

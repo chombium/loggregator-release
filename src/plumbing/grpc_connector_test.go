@@ -13,10 +13,11 @@ import (
 
 	"code.cloudfoundry.org/loggregator/plumbing"
 
-	"golang.org/x/net/context"
+	"context"
+
 	"google.golang.org/grpc"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"google.golang.org/protobuf/proto"
 )

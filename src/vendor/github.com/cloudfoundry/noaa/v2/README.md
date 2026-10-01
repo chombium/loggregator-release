@@ -124,5 +124,5 @@ metrics look at the README.md in the container_metrics sample.
 
 ## Development
 
-Use `go get -d -v -t ./... && ginkgo --race --randomizeAllSpecs --failOnPending --skipMeasurements --cover` to
+Use `go run github.com/onsi/ginkgo/v2/ginkgo --race --randomize-all --fail-on-pending` to
 run the tests.

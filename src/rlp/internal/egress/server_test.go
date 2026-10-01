@@ -5,7 +5,8 @@ import (
 	"io"
 	"time"
 
-	"golang.org/x/net/context"
+	"context"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -14,7 +15,7 @@ import (
 	"code.cloudfoundry.org/loggregator/rlp/internal/egress"
 
 	"code.cloudfoundry.org/loggregator/metricemitter/testhelper"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

@@ -11,7 +11,7 @@ import (
 	"code.cloudfoundry.org/loggregator/plumbing"
 	"code.cloudfoundry.org/loggregator/testservers"
 	"github.com/cloudfoundry/sonde-go/events"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

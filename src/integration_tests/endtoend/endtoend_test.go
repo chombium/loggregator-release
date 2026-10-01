@@ -8,7 +8,7 @@ import (
 	"code.cloudfoundry.org/loggregator/integration_tests/fakes"
 	"code.cloudfoundry.org/loggregator/testservers"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
@@ -47,5 +47,5 @@ var _ = Describe("End to end tests", func() {
 		}()
 
 		Eventually(firehoseReader.LogMessageAppIDs, 5).Should(Receive(Equal("custom-app-id")))
-	}, 10)
+	})
 })

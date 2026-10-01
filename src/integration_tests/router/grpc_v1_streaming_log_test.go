@@ -8,10 +8,10 @@ import (
 	"code.cloudfoundry.org/loggregator/plumbing"
 	"code.cloudfoundry.org/loggregator/testservers"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"golang.org/x/net/context"
+	"context"
 )
 
 var _ = Describe("GRPC Streaming Logs", func() {

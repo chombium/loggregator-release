@@ -11,8 +11,9 @@ import (
 	"code.cloudfoundry.org/loggregator/plumbing"
 	"code.cloudfoundry.org/loggregator/trafficcontroller/internal/auth"
 
+	"context"
+
 	"github.com/gorilla/mux"
-	"golang.org/x/net/context"
 )
 
 var MetricsInterval = 15 * time.Second

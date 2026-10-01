@@ -6,11 +6,12 @@ import (
 	"code.cloudfoundry.org/go-loggregator/v10/rpc/loggregator_v2"
 	"code.cloudfoundry.org/loggregator/rlp/internal/ingress"
 
-	"golang.org/x/net/context"
+	"context"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
@@ -36,9 +37,7 @@ var _ = Describe("Pool", func() {
 			listeners = append(listeners, lis1, lis2)
 		})
 
-		AfterEach(func(done Done) {
-			defer close(done)
-
+		AfterEach(func() {
 			for _, lis := range listeners {
 				lis.Close()
 			}

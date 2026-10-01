@@ -5,12 +5,13 @@ import (
 	"sync/atomic"
 	"time"
 
+	"context"
+
 	"code.cloudfoundry.org/go-batching"
 	gendiode "code.cloudfoundry.org/go-diodes"
 	"code.cloudfoundry.org/loggregator/diodes"
 	"code.cloudfoundry.org/loggregator/metricemitter"
 	"code.cloudfoundry.org/loggregator/plumbing"
-	"golang.org/x/net/context"
 )
 
 // Registrar registers stream and firehose DataSetters to accept reads.

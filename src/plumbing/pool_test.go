@@ -5,11 +5,12 @@ import (
 
 	"code.cloudfoundry.org/loggregator/plumbing"
 
-	"golang.org/x/net/context"
+	"context"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
@@ -25,9 +26,7 @@ var _ = Describe("Pool", func() {
 		pool = plumbing.NewPool(grpc.WithTransportCredentials(insecure.NewCredentials()))
 	})
 
-	AfterEach(func(done Done) {
-		defer close(done)
-
+	AfterEach(func() {
 		for _, lis := range listeners {
 			lis.Close()
 		}

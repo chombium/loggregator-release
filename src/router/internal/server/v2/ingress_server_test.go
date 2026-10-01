@@ -8,7 +8,7 @@ import (
 	"code.cloudfoundry.org/loggregator/metricemitter"
 	v2 "code.cloudfoundry.org/loggregator/router/internal/server/v2"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

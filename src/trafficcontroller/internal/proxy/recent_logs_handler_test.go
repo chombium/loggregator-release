@@ -19,7 +19,7 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"code.cloudfoundry.org/loggregator/metricemitter/testhelper"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

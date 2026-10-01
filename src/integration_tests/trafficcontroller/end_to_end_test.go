@@ -13,8 +13,7 @@ import (
 	"code.cloudfoundry.org/loggregator/plumbing"
 	"code.cloudfoundry.org/loggregator/testservers"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/ginkgo/extensions/table"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
 	"github.com/cloudfoundry/noaa/v2/consumer"
@@ -60,10 +59,9 @@ var _ = Describe("TrafficController for v1 messages", func() {
 			}, 10).Should(Succeed())
 		})
 
-		AfterEach(func(done Done) {
-			defer close(done)
+		AfterEach(func() {
 			fakeDoppler.Stop()
-		}, 30)
+		})
 
 		Describe("LogCache API Paths", func() {
 			Context("Recent", func() {
@@ -110,11 +108,10 @@ var _ = Describe("TrafficController for v1 messages", func() {
 				}, 10).Should(Succeed())
 			})
 
-			AfterEach(func(done Done) {
-				defer close(done)
+			AfterEach(func() {
 				fakeDoppler.Stop()
 				logCache.stop()
-			}, 30)
+			})
 
 			Describe("Loggregator Router Paths", func() {
 				Context("Streaming", func() {
@@ -346,10 +343,9 @@ var _ = Describe("TrafficController for v1 messages", func() {
 				messages, errors = client.StreamWithoutReconnect(APP_ID, AUTH_TOKEN)
 			})
 
-			AfterEach(func(done Done) {
-				defer close(done)
+			AfterEach(func() {
 				fakeDoppler.Stop()
-			}, 30)
+			})
 
 			It("still passes messages through", func() {
 				var grpcRequest *plumbing.SubscriptionRequest

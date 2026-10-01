@@ -7,16 +7,17 @@ import (
 	"sync"
 	"time"
 
+	"context"
+
 	"code.cloudfoundry.org/loggregator/metricemitter"
 	"code.cloudfoundry.org/loggregator/metricemitter/testhelper"
 	"code.cloudfoundry.org/loggregator/plumbing"
 	v1 "code.cloudfoundry.org/loggregator/router/internal/server/v1"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/proto"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

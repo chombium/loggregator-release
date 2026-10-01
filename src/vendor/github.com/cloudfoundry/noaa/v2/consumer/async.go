@@ -3,7 +3,7 @@ package consumer
 import (
 	"errors"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -172,7 +172,7 @@ func (c *Consumer) Close() error {
 	}
 
 	if len(errStrings) > 0 {
-		return errors.New(strings.Join(errStrings, ", "))
+		return fmt.Errorf(strings.Join(errStrings, ", "))
 	}
 
 	return nil
@@ -261,10 +261,7 @@ func (c *Consumer) listenForMessages(conn *connection, callback func(*events.Env
 	ws := conn.websocket()
 	for {
 		if c.idleTimeout != 0 {
-			err := ws.SetReadDeadline(time.Now().Add(c.idleTimeout))
-			if err != nil {
-				return err
-			}
+			ws.SetReadDeadline(time.Now().Add(c.idleTimeout))
 		}
 		_, data, err := ws.ReadMessage()
 
@@ -391,7 +388,7 @@ func (c *Consumer) websocketConn(path, authToken string) (*websocket.Conn, error
 	}
 
 	if URL.Scheme != "wss" && URL.Scheme != "ws" {
-		return nil, noaa_errors.NewNonRetryError(fmt.Errorf("invalid scheme '%s'", URL.Scheme))
+		return nil, noaa_errors.NewNonRetryError(fmt.Errorf("Invalid scheme '%s'", URL.Scheme))
 	}
 
 	ws, httpErr := c.tryWebsocketConnection(path, authToken)
@@ -450,14 +447,14 @@ func (c *Consumer) tryWebsocketConnection(path, token string) (*websocket.Conn, 
 	httpErr := &httpError{}
 	if resp != nil {
 		if resp.StatusCode == http.StatusUnauthorized {
-			bodyData, _ := io.ReadAll(resp.Body)
+			bodyData, _ := ioutil.ReadAll(resp.Body)
 			err = noaa_errors.NewUnauthorizedError(string(bodyData))
 		}
 		httpErr.statusCode = resp.StatusCode
 	}
 	if err != nil {
-		errMsg := "error dialing trafficcontroller server: %s.\n" +
-			"Please ask your Cloud Foundry Operator to check the platform configuration (trafficcontroller is %s)"
+		errMsg := "Error dialing trafficcontroller server: %s.\n" +
+			"Please ask your Cloud Foundry Operator to check the platform configuration (trafficcontroller is %s)."
 		httpErr.error = fmt.Errorf(errMsg, err.Error(), c.trafficControllerUrl)
 		return nil, httpErr
 	}
