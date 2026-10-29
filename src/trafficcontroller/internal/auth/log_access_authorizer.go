@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	ErrNoAuthTokenProvided = errors.New("Error: Authorization not provided")
-	ErrInvalidAuthToken    = errors.New("Error: Invalid authorization")
+	ErrNoAuthTokenProvided = errors.New("error: Authorization not provided")
+	ErrInvalidAuthToken    = errors.New("error: Invalid authorization")
 )
 
 // TODO: We don't need to return an error and a status code. One will suffice.

@@ -8,9 +8,9 @@ import (
 	envstruct "code.cloudfoundry.org/go-envstruct"
 	"code.cloudfoundry.org/loggregator/router/app"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
-	"github.com/onsi/gomega/gexec"
+	. "github.com/onsi/ginkgo/v2"  //nolint:staticcheck
+	. "github.com/onsi/gomega"     //nolint:staticcheck
+	"github.com/onsi/gomega/gexec" //nolint:staticcheck
 )
 
 func BuildRouterConfig(agentUDPPort, agentGRPCPort int) app.Config {
@@ -41,7 +41,7 @@ func StartRouter(conf app.Config) (cleanup func(), rp RouterPorts) {
 	Expect(routerPath).ToNot(BeEmpty())
 
 	By("starting router")
-	routerCommand := exec.Command(routerPath)
+	routerCommand := exec.Command(routerPath) //nolint:gosec
 	routerCommand.Env = envstruct.ToEnv(&conf)
 
 	routerSession, err := gexec.Start(

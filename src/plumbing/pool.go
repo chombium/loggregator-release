@@ -1,13 +1,12 @@
 package plumbing
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log"
 	"sync"
 	"time"
-
-	"context"
 
 	"google.golang.org/grpc"
 )
@@ -61,7 +60,7 @@ func (p *Pool) connectToDoppler(addr string) {
 	for {
 		log.Printf("adding doppler %s", addr)
 
-		conn, err := grpc.Dial(addr, p.dialOpts...)
+		conn, err := grpc.NewClient(addr, p.dialOpts...)
 		if err != nil {
 			// TODO: We don't yet understand how this could happen, we should.
 			// TODO: Replace with exponential backoff.
@@ -79,4 +78,10 @@ func (p *Pool) connectToDoppler(addr string) {
 
 		return
 	}
+}
+
+func (p *Pool) Size() int {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	return len(p.dopplers)
 }

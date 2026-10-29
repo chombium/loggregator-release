@@ -249,9 +249,11 @@ func (s *Server) BatchedReceiver(r *loggregator_v2.EgressBatchRequest, srv loggr
 				<-timer.C
 			}
 			timer.Reset(resetDuration)
-		case <-senderErrorStream:
+		case err = <-senderErrorStream:
+			_ = err
 			return io.ErrUnexpectedEOF
-		case <-receiveErrorStream:
+		case err = <-receiveErrorStream:
+			_ = err
 			for d := range buffer {
 				batcher.Write(d)
 			}

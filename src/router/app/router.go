@@ -113,13 +113,13 @@ func (d *Router) Start() {
 	v1Buf := diodes.NewManyToOneEnvelope(d.c.IngressBufferSize, gendiodes.AlertFunc(func(missed int) {
 		log.Printf("Dropped %d envelopes (v1 buffer)", missed)
 
-		ingressDropped.Increment(uint64(missed))
+		ingressDropped.Increment(uint64(missed)) //#nosec G115
 	}))
 
 	v2Buf := diodes.NewManyToOneEnvelopeV2(d.c.IngressBufferSize, gendiodes.AlertFunc(func(missed int) {
 		log.Printf("Dropped %d envelopes (v2 buffer)", missed)
 
-		ingressDropped.Increment(uint64(missed))
+		ingressDropped.Increment(uint64(missed))  //#nosec G115
 	}))
 
 	// metric-documentation-v2: (loggregator.doppler.subscriptions) Number of
@@ -235,7 +235,7 @@ func initV2Metrics(c *Config) *metricemitter.Client {
 		log.Fatalf("Could not use GRPC creds for server: %s", err)
 	}
 
-	batchInterval := time.Duration(c.MetricBatchIntervalMilliseconds) * time.Millisecond
+	batchInterval := time.Duration(c.MetricBatchIntervalMilliseconds) * time.Millisecond //#nosec G115
 
 	// metric-documentation-v2: setup function
 	metricClient, err := metricemitter.NewClient(

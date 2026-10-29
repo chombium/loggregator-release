@@ -105,10 +105,7 @@ func (m *DopplerServer) sendData(req *plumbing.SubscriptionRequest, sender sende
 	var done int64
 	go m.monitorContext(sender.Context(), &done)
 
-	for {
-		if atomic.LoadInt64(&done) > 0 {
-			break
-		}
+	for atomic.LoadInt64(&done) <= 0 {
 
 		data, ok := d.TryNext()
 		if !ok {
@@ -182,7 +179,7 @@ func (m *DopplerServer) sendBatchData(req *plumbing.SubscriptionRequest, sender 
 
 // Alert logs dropped message counts to stderr.
 func (m *DopplerServer) Alert(missed int) {
-	m.egressDropped.Increment(uint64(missed))
+	m.egressDropped.Increment(uint64(missed)) //#nosec G115
 }
 
 func (m *DopplerServer) monitorContext(ctx context.Context, done *int64) {

@@ -54,7 +54,7 @@ var _ = Describe("FirehoseHandler", func() {
 		req.Header.Add("Authorization", "token")
 
 		handler.ServeHTTP(recorder, req.WithContext(
-			context.WithValue(req.Context(), "subID", "abc-123")),
+			context.WithValue(req.Context(), "subID", "abc-123")), //nolint: staticcheck
 		)
 
 		Expect(connector.subscriptions.request).To(Equal(&plumbing.SubscriptionRequest{

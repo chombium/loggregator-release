@@ -27,7 +27,7 @@ func NewEnvelopeAverager() *EnvelopeAverager {
 func (a *EnvelopeAverager) Track(count, size int) {
 	for {
 		current := atomic.LoadUint64((*uint64)(&a.storage))
-		newValue := countAndTotal(current).encodeDelta(uint16(count), uint64(size))
+		newValue := countAndTotal(current).encodeDelta(uint16(count), uint64(size)) //#nosec G115
 
 		if atomic.CompareAndSwapUint64((*uint64)(&a.storage), current, uint64(newValue)) {
 			return

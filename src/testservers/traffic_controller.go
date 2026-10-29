@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/exec"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	. "github.com/onsi/ginkgo/v2" //nolint:staticcheck
+	. "github.com/onsi/gomega"    //nolint:staticcheck
 	"github.com/onsi/gomega/gexec"
 
 	envstruct "code.cloudfoundry.org/go-envstruct"
@@ -70,7 +70,7 @@ func StartTrafficController(conf tcConf.Config) (cleanup func(), tp TrafficContr
 	Expect(tcPath).ToNot(BeEmpty())
 
 	By("starting trafficcontroller")
-	tcCommand := exec.Command(tcPath)
+	tcCommand := exec.Command(tcPath) //nolint:gosec
 	tcCommand.Env = envstruct.ToEnv(&conf)
 	tcSession, err := gexec.Start(
 		tcCommand,
