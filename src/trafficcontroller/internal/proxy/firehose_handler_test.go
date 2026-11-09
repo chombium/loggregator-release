@@ -48,6 +48,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 		req, _ := http.NewRequest("GET", "/firehose/abc-123", nil)
@@ -70,6 +71,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 
@@ -97,6 +99,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 
@@ -124,6 +127,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 
@@ -149,6 +153,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 
@@ -168,6 +173,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 		server := httptest.NewServer(handler)
@@ -201,6 +207,7 @@ var _ = Describe("FirehoseHandler", func() {
 			"cookieDomain",
 			time.Hour,
 			mockSender,
+			newSpyRecentLogsHandler(),
 			false,
 		)
 		server := httptest.NewServer(handler)

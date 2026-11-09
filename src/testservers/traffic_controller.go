@@ -13,10 +13,11 @@ import (
 	tcConf "code.cloudfoundry.org/loggregator-release/src/trafficcontroller/app"
 )
 
-func BuildTrafficControllerConf(routerAddr string, agentPort int) tcConf.Config {
+func BuildTrafficControllerConf(routerAddr string, agentPort int, logCacheAddr string) tcConf.Config {
 	return tcConf.Config{
 		IP:                    "127.0.0.1",
 		RouterAddrs:           []string{routerAddr},
+		LogCacheAddr:          logCacheAddr,
 		SystemDomain:          "vcap.me",
 		SkipCertVerify:        true,
 		ApiHost:               "http://127.0.0.1:65530",
@@ -43,7 +44,19 @@ func BuildTrafficControllerConf(routerAddr string, agentPort int) tcConf.Config 
 			KeyFile:  LoggregatorTestCerts.Key("trafficcontroller"),
 			CAFile:   LoggregatorTestCerts.CA(),
 		},
+		LogCacheTLSConfig: tcConf.LogCacheTLSConfig{
+			CertFile: LogCacheTestCerts.Cert("log-cache-trafficcontroller"),
+			KeyFile:  LogCacheTestCerts.Key("log-cache-trafficcontroller"),
+			CAFile:   LogCacheTestCerts.CA(),
+		},
 	}
+}
+
+func BuildTrafficControllerConfWithoutLogCache(routerAddr string, agentPort int) tcConf.Config {
+	conf := BuildTrafficControllerConf(routerAddr, agentPort, "")
+	conf.LogCacheAddr = ""
+	conf.LogCacheTLSConfig = tcConf.LogCacheTLSConfig{}
+	return conf
 }
 
 type TrafficControllerPorts struct {

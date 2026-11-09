@@ -9,6 +9,7 @@ import (
 )
 
 var LoggregatorTestCerts = GenerateCerts("loggregatorCA")
+var LogCacheTestCerts = GenerateCerts("logCacheCA")
 
 type TestCerts struct {
 	ca *certtest.Authority

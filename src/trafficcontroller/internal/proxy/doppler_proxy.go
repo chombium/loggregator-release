@@ -2,6 +2,8 @@ package proxy
 
 import (
 	"context"
+	"log"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 	"time"
@@ -39,6 +41,7 @@ func NewDopplerProxy(
 	cookieDomain string,
 	slowConsumerTimeout time.Duration,
 	m MetricClient,
+	recentLogsHandler http.Handler,
 	disableAccessControl bool,
 ) *DopplerProxy {
 	// metric-documentation-v2: (doppler_proxy.firehoses) Number of open firehose streams
@@ -63,6 +66,14 @@ func NewDopplerProxy(
 			NewSetCookieHandler(cookieDomain),
 			AllowCredentials(),
 			AllowHeader("Content-Type"),
+		),
+	)
+
+	r.Handle(
+		"/apps/{appID}/recentlogs",
+		corsMiddleware.Wrap(
+			logAccessMiddleware.Wrap(recentLogsHandler),
+			AllowCredentials(),
 		),
 	)
 
@@ -94,6 +105,23 @@ func (d *DopplerProxy) emitMetrics(firehose *FirehoseHandler, stream *StreamHand
 	for range time.Tick(MetricsInterval) {
 		d.firehoseConnMetric.Set(float64(firehose.Count()))
 		d.appStreamConnMetric.Set(float64(stream.Count()))
+	}
+}
+
+func serveMultiPartResponse(rw http.ResponseWriter, messages [][]byte) {
+	mp := multipart.NewWriter(rw)
+	defer mp.Close()
+
+	rw.Header().Set("Content-Type", `multipart/x-protobuf; boundary=`+mp.Boundary())
+
+	for _, message := range messages {
+		partWriter, err := mp.CreatePart(nil)
+		if err != nil {
+			log.Printf("http handler: Client went away while serving recent logs")
+			return
+		}
+
+		_, _ = partWriter.Write(message)
 	}
 }
 
